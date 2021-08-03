@@ -1,0 +1,181 @@
+#notification{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    height: 10vh;
+    width: 100vw;
+    box-shadow: inset 0px 0px 9px 1px black;
+    padding: 5px;
+    background-color: white;
+    transition: .5s;
+    }
+#notification:hover{
+    position:absolute;
+    height: 15vh;
+}
+#notification.active-notification{
+    height: 92vh!important;
+    width: 100vw!important;
+}
+#notification.active-notification #count-notification{
+    right: 10px;
+    
+}
+.news-box{
+    overflow-y: auto;
+    height: 100%;
+}
+.news{
+    cursor: pointer;
+}
+.news:hover {
+    background: silver;
+}
+.news.not-seen{
+    background-color: #ff00002e;
+}
+.news-title{
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.news-content{
+    text-transform: uppercase;
+}
+.news-time{
+    color: #000000c7;
+    font-size: 12px;
+    font-family: sans-serif;
+    text-decoration: underline;
+
+}
+
+.info-order-title{
+    font-weight: 800;
+}
+.info-order{
+    font-weight: 600;
+}
+.createdAt-order{
+    font-size: 12px;
+}
+div#swipe {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -15px;
+    background: white;
+    border: 1px solid;
+    width: 40px;
+    height: 40px;
+    left: 47%;
+    border-radius: 50%;
+    border: 2px solid #4f4f4f;
+    /* background-image: url(https://st3.depositphotos.com/7107694/12607/v/950/depositphotos_126071218-stock-illustration-direction-up-vector-icon.jpg); */
+    background-size: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    flex-direction: column;
+}
+div#swipe.active-swipe{
+    top: -15px;
+    transform: rotate(
+180deg
+);
+}
+div#swipe .first{
+    position: relative;
+    top: -2px;
+    animation: animation-swipe-first 1.2s cubic-bezier(0.32, 0.12, 0.74, 1.04) infinite;
+}
+div#swipe .second{
+    position: relative;
+    top: -18px;
+    animation: animation-swipe-second 1.2s cubic-bezier(0.32, 0.12, 0.74, 1.04) infinite;
+
+}
+div#swipe::after {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 10px 0px black;
+    animation: swipe-shadow 1s cubic-bezier(0.32, 0.12, 0.74, 1.04) infinite;
+
+}
+@keyframes swipe-shadow {
+    0% {
+         width: 100%; 
+        height: 100%; 
+
+         opacity: 0;
+    }
+    50% {
+        width: 130%; 
+        height: 130%; 
+
+        opacity: 1;
+    }
+    100% { 
+        width: 170%; 
+        height: 170%; 
+
+        opacity: 0 ;
+    }
+}   
+@keyframes animation-swipe-first {
+    0% {
+         top: 6px; 
+         opacity: 0;
+    }
+    50% {
+        top:4px;
+        opacity: 1;
+    }
+    100% { 
+        top: -2px; 
+        opacity: 0 ;
+    }
+}    
+@keyframes animation-swipe-second {
+
+    0% {
+        top: -10px; 
+        opacity: 0;
+   }
+   50% {
+       top:-14px;
+       opacity: 1;
+   }
+   100% { 
+       top: -18px; 
+       opacity: 0 ;
+   }
+}
+#count-notification{
+    position: absolute;
+    top: -12px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-family: 'Roboto';
+    font-weight: 500;
+}
+#count-notification.news-true{
+    background: red!important;
+    color:white!important;
+}
+.end-time{
+    color:red;
+}
