@@ -7,7 +7,9 @@ use App\Models\Orders;
 use App\Models\AboutOrder;
 use App\Models\Products;
 use App\Events\FormSubmitted;
-
+use App\Notifications\InvoicePaid;
+use Carbon\Carbon;
+use App\Models\Notifications;
 
 class SystemController extends Controller
 {
@@ -75,6 +77,10 @@ class SystemController extends Controller
             'weight' => $request->weight,
             'amount'    => $request->amount,
         ));
+        // $when = Carbon::now()->addSeconds(10);
+        $notify = $order;
+        Orders::find($order->id) -> notify(new InvoicePaid($notify));
+        
     }
     
     public function removeOrders(Request $request)

@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Orders;
+use App\Models\Notifications;
+use App\User;
 use App\Events\FormSubmitted;
+use App\Notifications\InvoicePaid;
+use Illuminate\Notifications\Notifiable;
+
 
 class HomeController extends Controller
 {
@@ -25,9 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        
+        $o = Orders::all();
 
-        $notifyOrder = Orders::orderBy('created_at', 'desc')->get();
+        // foreach ($o->unreadNotifications as $notification) {
+        //     //
+        // }
+        $notifyOrder = Notifications::where('read_at',null)->orderBy('created_at', 'desc')->get();
+
         return view('index')->with('notifyOrder', $notifyOrder);
     }
 }

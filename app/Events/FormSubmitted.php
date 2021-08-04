@@ -36,6 +36,6 @@ class FormSubmitted implements ShouldBroadcast
     }
 
     public function broadcastAs(){
-        return 'Notify';
+        return 'liveNotify';
     }
 }

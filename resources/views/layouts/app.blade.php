@@ -44,20 +44,22 @@
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('a74db98b9bd631f874fd', {
-      cluster: 'eu'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('Notify', function(data) {
-        let notify = $('#count-notification'),
-            notifyCountNow = parseInt(notify.html());
-            notify.html(notifyCountNow + data._var)
-    });
-  </script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+    
+        var pusher = new Pusher('a74db98b9bd631f874fd', {
+          cluster: 'eu'
+        });
+    
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('liveNotify', function(data) {
+            let notify = $('#count-notification');
+                console.log(data._var)
+                notifyCountNow = parseInt(notify.html());
+                notify.html(data._var)
+                $('#news-box').load(`/ #news-box>*`);
+        });
+      </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>        
     <!-- Scripts -->
@@ -68,6 +70,6 @@
     <script src="{{ asset('js/order.js') }}" defer></script>
     
     @yield('script')
-
+   
 </body>
 </html>

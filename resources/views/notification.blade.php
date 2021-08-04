@@ -1,10 +1,9 @@
-<div id="notification">
     <div id="count-notification" class="news-true">
         {{count($notifyOrder)}}
     </div>
     <div class="news-box" id="news-box">
-     @foreach($notifyOrder as $key => $value)
 
+     @foreach($notifyOrder as $key => $value)
         {{-- <hr class="mt-0"> --}}
         {{-- <div class="news px-2 py-1" data-system="orders" data-id="1">
             <h5 class="m-0 p-0 news-title " >{{ __('Заказ')}} 1</h5>
@@ -36,15 +35,17 @@
         {{-- <hr> --}}
     @endforeach
     @foreach($notifyOrder as $key => $value)
+    @if(is_null($value->read_at))
+    
                 <hr class="mt-0">
                 
-                    <div class="created-order px-2 py-1 news " data-type-id="{{$value->id}}" data-type="{{$value->type}}" data-endTime="{{$value->endTime}}" data-density="{{$value->density}}" data-size-a="{{$value->sizeA}}" data-size-b="{{$value->sizeB}}" data-weight="{{$value->weight}}" data-amount="{{$value->amount}}" data-system="orders" data-id="{{$key+1}}">
+                    <div class="created-order px-2 py-1 news " data-type-id="{{$value->notifiable_id}}" data-type="{{json_decode($value->data)->data->type}}" data-endTime="{{json_decode($value->data)->data->endTime}}" data-density="{{json_decode($value->data)->data->density}}" data-size-a="{{json_decode($value->data)->data->sizeA}}" data-size-b="{{json_decode($value->data)->data->sizeB}}" data-weight="{{json_decode($value->data)->data->weight}}" data-amount="{{json_decode($value->data)->data->amount}}" data-system="orders" data-id="{{$key+1}}">
                         <h5 class="m-0 p-0 news-title created-order d-flex justify-content-between" >
                             <span class="num-order">
-                            No. {{$value -> id}} 
+                            No. {{json_decode($value->data)->data -> id}} 
                             </span>
                             <span class="createdAt-order">
-                            {{__('создано')}}: {{$value->created_at}} 
+                            {{__('создано')}}: {{json_decode($value->data)->data->created_at}} 
                             </span>
                         </h5>
                         <p class="m-0 p-0 news-content"> 
@@ -54,51 +55,50 @@
                 <span class="info-order">
                     {{__('Срок')}} 
                 </span>
-                - ( {{$value->endTime}} ), 
+                - ( {{json_decode($value->data)->data->endTime}} ), 
                 <span class="info-order">
                     {{__('Тип')}} 
                 </span>
-                - {{$value->type}},  
+                - {{json_decode($value->data)->data->type}},  
                 <span class="info-order">
                     {{__('Плотность')}}
                 </span>
-                - {{$value->density}} Г., 
+                - {{json_decode($value->data)->data->density}} Г., 
                 <span class="info-order">
                     {{__('Размер')}} 
                 </span>
-                - ( {{$value->sizeA}} X {{$value->sizeB}} ) М., 
+                - ( {{json_decode($value->data)->data->sizeA}} X {{json_decode($value->data)->data->sizeB}} ) М., 
                 <span class="info-order">
                     {{__('Вес')}} 
                 </span>
-                - {{$value->weight}} Кг, 
+                - {{json_decode($value->data)->data->weight}} Кг, 
                 <span class="info-order">
                     {{__('Количество')}}  
                 </span>
-                - {{$value->amount}} Ш
+                - {{json_decode($value->data)->data->amount}} Ш
                             <br>
                 <span class="info-order">
                     {{__('Кратко')}}
                 </span>
                 ::
-                            ( {{$value->type}} ),
-                            {{$value->density}} Г.,
-                            ( {{$value->sizeA}} X {{$value->sizeB}} ) М.,
-                            {{$value->weight}} Кг
+                            ( {{json_decode($value->data)->data->type}} ),
+                            {{json_decode($value->data)->data->density}} Г.,
+                            ( {{json_decode($value->data)->data->sizeA}} X {{json_decode($value->data)->data->sizeB}} ) М.,
+                            {{json_decode($value->data)->data->weight}} Кг
                             -
-                            {{$value->amount}} Ш
+                            {{json_decode($value->data)->data->amount}} Ш
 
                         </p>
                         
-                        <span class="m-0 p-0 news-time">{{__('СРОК ДО')}}: ({{$value->endTime}}), </span>
+                        <span class="m-0 p-0 news-time">{{__('СРОК ДО')}}: ({{json_decode($value->data)->data->endTime}}), </span>
                         {{-- <button class="deleteOrder btn order-settings-btn  btn-danger"><i class="fa fa-check" aria-hidden="true"></i></button> --}}
                     </div>
                 <hr>
-            @endforeach
+        @endif
 
+            @endforeach
     </div>
     <div id="swipe">
         <i class="first fa fa-angle-up" aria-hidden="true"></i>
         <i class="second fa fa-angle-up" aria-hidden="true"></i>
     </div>
-
-</div>

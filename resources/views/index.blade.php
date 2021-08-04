@@ -154,7 +154,10 @@
             @include('rightBar')
         </div>
     </div>
-    @include('notification',['notifyOrder'=>$notifyOrder])
+    <div id="notification">
+
+        @include('notification',['notifyOrder'=>$notifyOrder])
+    </div>
 
 @endif
 

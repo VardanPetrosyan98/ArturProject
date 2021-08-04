@@ -19,7 +19,7 @@ $(document).on('click','.news',function(){
 function actionSystemsOrder(systemOrder,orderId){
     $('#leftBar').load(`/system/${systemOrder}?id=${orderId} #content`);
 }
-$('#swipe').on('click',function(){
+$(document).on('click','#swipe',function(){
     console.log('a')
     $('#swipe').toggleClass('active-swipe')
     $('#notification').toggleClass('active-notification')
