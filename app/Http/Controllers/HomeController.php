@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Orders;
+use App\Events\FormSubmitted;
 
 class HomeController extends Controller
 {
@@ -23,7 +24,9 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    {   
+        
+
         $notifyOrder = Orders::orderBy('created_at', 'desc')->get();
         return view('index')->with('notifyOrder', $notifyOrder);
     }

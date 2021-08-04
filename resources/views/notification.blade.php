@@ -1,6 +1,6 @@
 <div id="notification">
     <div id="count-notification" class="news-true">
-        1
+        {{count($notifyOrder)}}
     </div>
     <div class="news-box" id="news-box">
      @foreach($notifyOrder as $key => $value)

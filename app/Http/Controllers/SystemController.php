@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Models\AboutOrder;
 use App\Models\Products;
-
+use App\Events\FormSubmitted;
 
 
 class SystemController extends Controller
@@ -149,6 +149,7 @@ class SystemController extends Controller
     {
         if($request->add == 'true')
         {
+            
             $product = new Products;
             $product->orders_id = $request->orderId;
             $product->type = $request->radio;
@@ -156,6 +157,8 @@ class SystemController extends Controller
                 $product->weight = $request->weight;
             }
             $product->save();
+            $_var = 1;
+            event(new FormSubmitted($_var));
             $orders = $product->orders->get();
             return view('./layouts/systems/order')->with('orders', $orders);
 
