@@ -132,9 +132,58 @@
                 transition: 1.5s;
             }
         /*  */
+        .state {
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+        .state.new{
+            color: blue;
+            box-shadow: 0px 0px 7px 0px blue;
+        }
+        .state.in_progres{
+            color: palevioletred;
+            box-shadow: 0px 0px 7px 0px palevioletred;
+        }
+        .state.poused{
+            color: yellow;
+            box-shadow: 0px 0px 7px 0px yellow;
+        }
+        .state.done{
+            color: green;
+            box-shadow: 0px 0px 7px 0px green;
+        }
+        .state.canceled{
+            color: red;
+            box-shadow: 0px 0px 7px 0px red;
+        }
+        .order-footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+        }
+        .unread_notify{
+            background: #ff000017;
+        }
+        @media screen and (max-width: 768px) {
+            body{
+                font-size: 0.7rem;
+            }
+            .rightBar {     
+                position: absolute;
+                display: grid;
+                grid-template-columns: 32% 32% 32%;
+                grid-gap: 10px;
+                background: #292727; 
+                left: 1000px;
+            }
+            .rightBar.active { 
+                left: 0px;
+            }
+        }
     </style>    
 @endsection
 @section('content')
+
 @if(!Auth::check())
     <div id="leftBar" class="leftBar col-md-10">
 

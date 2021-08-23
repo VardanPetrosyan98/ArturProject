@@ -19,6 +19,11 @@ class Orders extends Model
     protected $fillable = [
         'endTime', 'type', 'density','sizeA', 'sizeB','weight', 'amount',
     ];
+    public function states() {
+
+        return $this->belongsToMany(State::class,'orders_states');
+     }
+
     public function about() {
      
         return $this->belongsTo(AboutOrder::class,'id','orders_id');

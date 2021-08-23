@@ -24,7 +24,11 @@ Auth::routes();
 
 
 
+// notify
+Route::group(['prefix' => 'notify'], function() {
+    Route::post('/NotifMarkAsRead', 'NotificationController@NotifMarkAsRead')->name('notif.mark.as.read');
 
+});
 // options 
 Route::group(['prefix' => 'options'], function() {
     Route::get('/home', 'OptionController@home')->name('home');
@@ -45,6 +49,8 @@ Route::group(['prefix' => 'system'], function() {
         Route::group(['prefix' => 'products'], function() {
             Route::post('/add', 'SystemController@addProduct')->name('system.orders.product.add');
             Route::post('/about', 'SystemController@aboutProduct')->name('system.orders.product.about');
+            Route::post('/remove', 'SystemController@removeProduct')->name('system.orders.product.remove');
+            
         });
 
         Route::group(['prefix' => 'remove'], function() {

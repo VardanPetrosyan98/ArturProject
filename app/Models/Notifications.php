@@ -10,6 +10,12 @@ class Notifications extends Model
     protected $fillable = [
         'notifiable_id',  'data','read_at','created_at'
     ];
+    public function notifiable_variables() {
+        $action = $this->notifiable_type;
+        return $this->belongsTo($action,'notifiable_id','id');
+            
+    }
+
 }
 
 // Чтобы получить такое уведомление, просто используйте отношение notifications.

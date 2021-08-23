@@ -7,7 +7,6 @@ trait HasRolesAndPermissions
     public function givePermissionsTo(... $permissions) {
 
         $permissions = $this->getAllPermissions($permissions);
-        dd($permissions);
         if($permissions === null) {
           return $this;
         }

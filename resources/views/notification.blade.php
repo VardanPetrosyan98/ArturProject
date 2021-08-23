@@ -1,8 +1,9 @@
-    <div id="count-notification" class="news-true">
-        {{count($notifyOrder)}}
-    </div>
-    <div class="news-box" id="news-box">
-
+    
+    <div class="news-box " id="news-box">
+        <div id="count-notification" class="news-true">
+            {{count($notifyOrder)}}
+        
+        </div>
      @foreach($notifyOrder as $key => $value)
         {{-- <hr class="mt-0"> --}}
         {{-- <div class="news px-2 py-1" data-system="orders" data-id="1">
@@ -34,21 +35,20 @@
         </div> --}}
         {{-- <hr> --}}
     @endforeach
-    @foreach($notifyOrder as $key => $value)
+    @forelse($notifyOrder as $key => $value)
     @if(is_null($value->read_at))
-    
                 <hr class="mt-0">
                 
-                    <div class="created-order px-2 py-1 news " data-type-id="{{$value->notifiable_id}}" data-type="{{json_decode($value->data)->data->type}}" data-endTime="{{json_decode($value->data)->data->endTime}}" data-density="{{json_decode($value->data)->data->density}}" data-size-a="{{json_decode($value->data)->data->sizeA}}" data-size-b="{{json_decode($value->data)->data->sizeB}}" data-weight="{{json_decode($value->data)->data->weight}}" data-amount="{{json_decode($value->data)->data->amount}}" data-system="orders" data-id="{{$key+1}}">
-                        <h5 class="m-0 p-0 news-title created-order d-flex justify-content-between" >
-                            <span class="num-order">
-                            No. {{json_decode($value->data)->data -> id}} 
-                            </span>
-                            <span class="createdAt-order">
-                            {{__('создано')}}: {{json_decode($value->data)->data->created_at}} 
-                            </span>
-                        </h5>
-                        <p class="m-0 p-0 news-content"> 
+            <div class="created-order px-2 py-1 news @if(!$value->read_at)unread_notify @endif" data-type-id="{{$value->notifiable_id}}" data-type="{{json_decode($value->data)->data->type}}" data-endTime="{{json_decode($value->data)->data->endTime}}" data-density="{{json_decode($value->data)->data->density}}" data-size-a="{{json_decode($value->data)->data->sizeA}}" data-size-b="{{json_decode($value->data)->data->sizeB}}" data-weight="{{json_decode($value->data)->data->weight}}" data-amount="{{json_decode($value->data)->data->amount}}" data-system="orders" data-id="{{$key+1}}">
+                <h5 class="m-0 p-0 news-title created-order d-flex justify-content-between" >
+                    <span class="num-order">
+                    No. {{json_decode($value->data)->data -> id}} 
+                    </span>
+                    <span class="createdAt-order">
+                    {{__('создано')}}: {{json_decode($value->data)->data->created_at}} 
+                    </span>
+                </h5>
+                <p class="m-0 p-0 news-content"> 
                 <span class="info-order-title">
                     {{__('Заказ')}}
                 </span>::
@@ -89,16 +89,24 @@
                             {{json_decode($value->data)->data->amount}} Ш
 
                         </p>
-                        
-                        <span class="m-0 p-0 news-time">{{__('СРОК ДО')}}: ({{json_decode($value->data)->data->endTime}}), </span>
-                        {{-- <button class="deleteOrder btn order-settings-btn  btn-danger"><i class="fa fa-check" aria-hidden="true"></i></button> --}}
+                        <div class="order-footer">
+                            <span class="m-0 p-0 news-time">{{__('СРОК ДО')}}: ({{json_decode($value->data)->data->endTime}}), </span>
+                            <div>
+                            <button class="read_notify btn  btn-success" data-notif-id="{{$value->notifiable_id}}"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                            <span class="state {{$value->notifiable_variables->states[0]->state}}">{{__($value->notifiable_variables->states[0]->state)}}</span>
+                            </div>
+                        </div>
                     </div>
                 <hr>
         @endif
-
-            @endforeach
+                    @empty 
+                    <hr>
+                    <p>Нет новых уведомлений</p>
+                    <hr>
+            @endforelse
     </div>
     <div id="swipe">
         <i class="first fa fa-angle-up" aria-hidden="true"></i>
         <i class="second fa fa-angle-up" aria-hidden="true"></i>
     </div>
+<input type="hidden" name="notifMarkAsRead" id="notifMarkAsRead" value="{{route('notif.mark.as.read')}}">

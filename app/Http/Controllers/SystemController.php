@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Orders;
 use App\Models\AboutOrder;
 use App\Models\Products;
+use App\Models\State;
+use App\Models\OrdersState;
+use App\User;
+use Illuminate\Notifications\Notifiable;
 use App\Events\FormSubmitted;
 use App\Notifications\InvoicePaid;
 use Carbon\Carbon;
@@ -13,6 +17,8 @@ use App\Models\Notifications;
 
 class SystemController extends Controller
 {
+    use Notifiable;
+    
     public function index(Request $request)
     {
         return view('./layouts/systems/sintepon');
@@ -23,6 +29,7 @@ class SystemController extends Controller
         if(isset($request->id)){
             $orders = Orders::where('id',$request->id)->get();
         };
+
 
         // $orders = json_encode($ordersArr);
 
@@ -77,6 +84,8 @@ class SystemController extends Controller
             'weight' => $request->weight,
             'amount'    => $request->amount,
         ));
+        $state = State::find(1);
+        $order->states()->attach($state);
         // $when = Carbon::now()->addSeconds(10);
         $notify = $order;
         Orders::find($order->id) -> notify(new InvoicePaid($notify));
@@ -140,6 +149,10 @@ class SystemController extends Controller
         }
 
         $aboutOrder->save();
+        $order = $aboutOrder->orders;
+        $state = State::all();
+        if(count($state[1]->orders) != 0 ) $state[1]->orders[0]->states()->sync($state[2]);
+        $order->states()->sync($state[1]);
         $orders = Orders::orderBy('created_at', 'desc')->get();
 
       return view('./layouts/systems/order')->with('orders', $orders);
@@ -177,6 +190,11 @@ class SystemController extends Controller
     {
         $product = Products::find($request->productId);
         return view('./layouts/systems/doneProductAboutForm')->with('product',$product);
+    }
+    public function removeProduct(Request $request){
+        $product = Products::find($request->productId);
+        // $product -> delete();
+        return response()->JSON(true);
     }
 
 }

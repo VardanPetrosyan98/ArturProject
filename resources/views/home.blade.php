@@ -3,7 +3,7 @@
         <div class="card info-box">
         <span class="notefication-info">{{$ordersCount}}</span>
             <p class="count-info">{{$ordersCount}}</p>
-            <h4 class="title-info">заказы</h4>
+            <h4 class="title-info ">новые <br> заказы</h4>
         </div>
     </div>
     <div class=" info-item">
@@ -30,5 +30,4 @@
             <h4 class="title-info">заказы</h4>
         </div>
     </div>
-     
 </div>

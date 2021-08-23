@@ -142,7 +142,7 @@ $(document).on('click','.removeAbout',function(){
     let action = $('#actionRemoveAbout').val();
     let parent = $(this).parent().parent();
     let post =  $.post(action, { aboutId: aboutId,_token: $('meta[name="csrf-token"]').attr('content')},function(result) {
-        parent.hide('slow', function(){ $target.remove(); })
+        parent.hide('slow', function(){ parent.remove(); })
         // console.log(parent)
     })
 })
@@ -197,5 +197,23 @@ $(document).on('click','#product-about',function(e){
     if(e.target.id == 'product-about' || e.target.id == 'cloasProductAboutForm') {
     $('.product-about').html('');
     $('.product-about').removeClass('active')
+    }else if(e.target.id == 'removeProductbtn'){
+        let item = $('#removeProductbtn');
+        let action = $('#actionRemoveProduct').val();
+         
+        let producetId= item.data('productId');
+        console.log(producetId)
+        let post =  $.post(action, { producetId: producetId,_token: $('meta[name="csrf-token"]').attr('content')},function(result) {
+        $('.product-about').removeClass('active')
+        $('.product-about').html('');})
+        $(`.product-${producetId}`).parent().hide('slow', function(){ 
+            $(`.product-${producetId}`).parent().remove(); 
+            if($('.product-li').length == 0){
+                $('.product-ul').html(`<li class="text-align-center m-auto">
+                    empty
+                </li>`)
+            }
+        })
+        
     }
 })

@@ -66,12 +66,12 @@ animation-iteration-count: 1; ">
             </span></p>
         </div>
         <hr>
-        <button id="removeProductbtn" type="button" class="btn-danger" style="    margin: 0px 10px;
+        <button id="removeProductbtn" data-product-id="{{$product->id}}" type="button" class="btn-danger" style="    margin: 0px 10px;
         display: inline-block;
         cursor: pointer;
         border-radius: 10px;
         padding: 5px 10px;
         ">Удалить</button>
     </fieldset>
-
+<input type="hidden"  id="actionRemoveProduct" value="{{route('system.orders.product.remove')}}">
 </form>

@@ -264,6 +264,31 @@
             width: 100%;
             height: 100%;
         }
+        .state {
+            padding: 5px 10px;
+            border-radius: 10px;
+        }
+        .state.new{
+            color: blue;
+            box-shadow: 0px 0px 7px 0px blue;
+        }
+        .state.in_progres{
+            color: palevioletred;
+            box-shadow: 0px 0px 7px 0px palevioletred;
+        }
+        .state.poused{
+            color: yellow;
+            box-shadow: 0px 0px 7px 0px yellow;
+        }
+        .state.done{
+            color: green;
+            box-shadow: 0px 0px 7px 0px green;
+        }
+        .state.canceled{
+            color: red;
+            box-shadow: 0px 0px 7px 0px red;
+        }
+        
     </style>
     <div class="list-orders">
         <hr class="mt-0">
@@ -363,9 +388,28 @@
                         </div>
                         <div class="right-bar col-md-1">
                             @role('worker') 
-                                <button class="start-work btn-success" data-order-id="{{$value->id}}">
-                                    <i class="fa fa-play" aria-hidden="true"></i>
-                                </button>
+                                    @switch($value->states[0]->state)
+                                        @case('In Progres')
+                                            <button class="start-work {{$value->states[0]->state}} btn-warning" data-order-id="{{$value->id}}">
+                                                <i class="fa fa-pause" aria-hidden="true"></i>
+                                            </button>
+                                            @break
+                                        @case('Canceled')
+                                            <button class="start-work {{$value->states[0]->state}} btn-danger" data-order-id="{{$value->id}}">
+                                                <i class="fa fa-remove" aria-hidden="true"></i>
+                                            </button>
+                                            @break
+                                        @case('Done')
+                                            <button class="start-work {{$value->states[0]->state}} btn-success" data-order-id="{{$value->id}}">
+                                                <i class="fa fa-success" aria-hidden="true"></i>
+                                            </button>
+                                            @break
+                                        @default
+                                        <button class="start-work {{$value->states[0]->state}} btn-success" data-order-id="{{$value->id}}">
+                                            <i class="fa fa-play" aria-hidden="true"></i>
+                                        </button>
+                                    @endswitch
+                               
                             @endrole
                         </div>
                     </div>
@@ -373,6 +417,7 @@
                     <div class="order-footer">
                         <span class="m-0 p-0 news-time">{{__('СРОК ДО')}}: ({{$value->endTime}}), </span>
                         @if(!empty($value->about()->get()->toArray()))
+                        <span class="state {{$value->states[0]->state}}">{{__($value->states[0]->state)}}</span >
                         <div class="about-box d-flex">
                             <a href="#" class="m-0 p-0 news-about">{{__('ОПИСАНИЕ')}}</a>
                             <div class="vertical-line" style="background-color: #00000066;
@@ -382,7 +427,7 @@
                             <a href="#" class="m-0 p-0 product-done">{{__('СДЕЛАНО')}}</a>
                         </div>
                         @else
-                        {{__('в ожидании')}}
+                        <span class="state {{$value->states[0]->state}}">{{__($value->states[0]->state)}}</span>
                         @endif
 
                     </div>
@@ -479,7 +524,7 @@
                         @if($value->products)
                             @forelse($value->products->all() as $productKey=>$product)
                                 <li class="product-li" data-order-id="{{$product->orders_id}}">
-                                    <div class="product-box {{$product->type[0]}}-product " data-product-id='{{$product->id}}'>
+                                    <div class="product-box product-{{$product->id}} {{$product->type[0]}}-product " data-product-id='{{$product->id}}'>
                                         {{$product->type[0]}}
                                     </div>
                                 </li>
@@ -494,11 +539,13 @@
                             </li>
                         @endif
                         @role('worker')
-                            <li class="add-product-box">
-                                <button class="add-product btn-success" data-order-id="{{$value->id}}">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </li>
+                            @if($value->states[0]->state == 'In Progres')
+                                <li class="add-product-box">
+                                    <button class="add-product btn-success" data-order-id="{{$value->id}}">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </li>
+                            @endif
                         @endrole
                         </ul>
                         

@@ -9,3 +9,9 @@ $('.switch').on('click',function(){
 function actionOptions(option){
   $('#leftBar').load(`/options/${option} #content`);
 }
+$(document).on('click','.navbar-toggler',function(){
+  $('.rightBar').toggleClass('active')
+})
+$(document).on('click','.btn-system',function(){
+  $('.navbar-toggler').click()
+})

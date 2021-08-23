@@ -41,6 +41,7 @@
 .title-info{
     text-decoration: underline;
     text-transform: uppercase;
+    text-align: center;
 }
 .info-item.not-true .info-box{
     border-color: red;

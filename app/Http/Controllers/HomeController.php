@@ -32,9 +32,7 @@ class HomeController extends Controller
     {   
         $o = Orders::all();
 
-        // foreach ($o->unreadNotifications as $notification) {
-        //     //
-        // }
+       
         $notifyOrder = Notifications::where('read_at',null)->orderBy('created_at', 'desc')->get();
 
         return view('index')->with('notifyOrder', $notifyOrder);
