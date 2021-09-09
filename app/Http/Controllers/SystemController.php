@@ -158,6 +158,16 @@ class SystemController extends Controller
       return view('./layouts/systems/order')->with('orders', $orders);
 
     }
+    public function orderStatusPoused(Request $request){
+        // $state = State::find($request->orderId);
+        $order = Orders::find($request->orderId);
+        $state = State::all();
+        $order->states()->sync($state[2]);  
+
+        // if(count($state[1]->orders) != 0 ) $state[1]->orders[0]->states()->sync($state[2]);
+        // $order->states()->sync($state[1]);
+    }
+     
     public function orderAboutRemove(Request $request)
     {
         $aboutOrder = AboutOrder::find($request->aboutId);

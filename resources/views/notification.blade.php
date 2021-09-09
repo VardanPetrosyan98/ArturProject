@@ -39,7 +39,7 @@
     @if(is_null($value->read_at))
                 <hr class="mt-0">
                 
-            <div class="created-order px-2 py-1 news @if(!$value->read_at)unread_notify @endif" data-type-id="{{$value->notifiable_id}}" data-type="{{json_decode($value->data)->data->type}}" data-endTime="{{json_decode($value->data)->data->endTime}}" data-density="{{json_decode($value->data)->data->density}}" data-size-a="{{json_decode($value->data)->data->sizeA}}" data-size-b="{{json_decode($value->data)->data->sizeB}}" data-weight="{{json_decode($value->data)->data->weight}}" data-amount="{{json_decode($value->data)->data->amount}}" data-system="orders" data-id="{{$key+1}}">
+            <div class="created-order px-2 py-1 news @if(!$value->read_at)unread_notify @endif" data-type-id="{{$value->notifiable_id}}" data-type="{{json_decode($value->data)->data->type}}" data-endTime="{{json_decode($value->data)->data->endTime}}" data-density="{{json_decode($value->data)->data->density}}" data-size-a="{{json_decode($value->data)->data->sizeA}}" data-size-b="{{json_decode($value->data)->data->sizeB}}" data-weight="{{json_decode($value->data)->data->weight}}" data-amount="{{json_decode($value->data)->data->amount}}" data-system="orders" data-id="{{json_decode($value->data)->data -> id}} ">
                 <h5 class="m-0 p-0 news-title created-order d-flex justify-content-between" >
                     <span class="num-order">
                     No. {{json_decode($value->data)->data -> id}} 

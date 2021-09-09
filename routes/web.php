@@ -42,6 +42,7 @@ Route::group(['prefix' => 'system'], function() {
         Route::get('/orderNum', 'SystemController@ordersSerach')->name('system.orders.search');
         Route::get('/filter', 'SystemController@ordersFilter')->name('system.orders.filter');
         Route::get('/getaboutorderform', 'SystemController@getAboutOrderForm')->name('system.about.orders.form');
+        Route::post('/status', 'SystemController@orderStatusPoused')->name('system.orders.status.poused');
         Route::group(['prefix' => 'add'], function() {
             Route::post('/', 'SystemController@addOrders')->name('system.orders.add');
             Route::post('/about', 'SystemController@ordersAbout')->name('system.about.orders.add');

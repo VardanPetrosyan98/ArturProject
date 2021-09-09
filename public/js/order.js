@@ -109,7 +109,7 @@ $(document).on('click','.product-done',function(){
     $(this).parent().parent().next().next().toggleClass('active')
 })
 
-$(document).on('click','.start-work',function(){
+$(document).on('click','.New, .Poused ',function(){
     $('#about-form-box').css({
         "display":'flex',
         "background-color": '#00000087'
@@ -118,7 +118,14 @@ $(document).on('click','.start-work',function(){
     let action = `${$('#actionAboutForm').val()}?id=${orderId}`;
     // console.log(action)
     $('#about-form-box').load(`${action} #about-order-form `);
-
+})
+$(document).on('click','.Progres',function(){
+    let orderId = $(this).data('orderId')
+    let action = $('#orderStatus').val();
+    console.log(action)
+    let post =  $.post(action, {orderId:orderId,status:'Poused',_token: $('meta[name="csrf-token"]').attr('content')},function(result) {
+        $('#leftBar').load(`/system/orders #content`);
+    })
 })
 $(document).on('click','#about-form-box',function(e){
     // console.log(e.target.id)
@@ -150,10 +157,11 @@ $(document).on('click','.removeAbout',function(){
 $(document).on('click','.add-product',function(){
     let action = $('#actionAddProduct').val();
     let orderId = $(this).data('orderId')
-    console.log(orderId)
+    let productAbout = $(this).parents('.products').next()
+    console.log(productAbout)
 
     let post =  $.post(action, {orderId:orderId,_token: $('meta[name="csrf-token"]').attr('content')}, function(result) {
-        $('.product-about').html(result);
+        productAbout.html(result);
 
         $('.product-about').addClass('active')  
     })

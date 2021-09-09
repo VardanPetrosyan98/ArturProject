@@ -90,7 +90,7 @@
             <legend style="border-bottom: 1px solid #00000052;display: flex;
             border-bottom: 1px solid #00000052;
             justify-content: space-between;">
-                <p>ПРАДУКТ No:{{1+1}}</p>
+                <p>ПРАДУКТ No:{{$orderId}}</p>
                 <button class="cancel  btn-danger" id="cloasProductAboutForm" type="button" style="width: 25px;
                 height: 25px;
                 border-radius: 50%;

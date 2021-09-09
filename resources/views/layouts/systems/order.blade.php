@@ -585,6 +585,7 @@
 <input type="hidden" name="actionRemoveOrder" id="actionRemoveOrder" value="{{route("system.orders.remove")}}">
 <input type="hidden" name="actionAboutProduct" id="actionAboutProduct" value="{{route("system.orders.product.about")}}">
 <input type="hidden" name="actionAddProduct" id="actionAddProduct" value="{{route("system.orders.product.add")}}">
+<input type="hidden" name="orderStatus" id="orderStatus" value="{{route('system.orders.status.poused')}}">
 
 </div>
 
